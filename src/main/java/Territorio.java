@@ -23,8 +23,16 @@ public class Territorio {
 	 * @param ciudades
 	 */
 	public boolean agregarRegion(String nombre, List<Ciudad> ciudades) {
-		// TODO - implement Territorio.agregarRegion
-		throw new UnsupportedOperationException();
+		for (Region reg : regiones){
+			if (reg.getNombre().equals(nombre)){
+				break;
+			} else {
+				Region region = new Region(nombre, ciudades);
+				regiones.add(region);
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -32,8 +40,13 @@ public class Territorio {
 	 * @param nombreRegion
 	 */
 	public boolean eliminarRegion(String nombreRegion) {
-		// TODO - implement Territorio.eliminarRegion
-		throw new UnsupportedOperationException();
+		for (Region region : regiones){
+			if (region.getNombre().equals(nombreRegion)){
+				regiones.remove(region);
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -43,22 +56,40 @@ public class Territorio {
 	 * @param region
 	 */
 	public boolean agregarCiudad(String nombreCiudad, int codigoPostal, Region region) {
-		// TODO - implement Territorio.agregarCiudad
-		throw new UnsupportedOperationException();
+		for (Region reg : regiones){
+			if (reg == region){
+				Ciudad ciudad = new Ciudad(nombreCiudad, codigoPostal);
+				List<Ciudad> ciudades = reg.getCiudades();
+				ciudades.add(ciudad);
+				reg.setCiudades(ciudades);
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
 	 * 
 	 * @param codigoPostal
 	 */
-	public boolean eliminarCiudad(int codigoPostal) {
-		// TODO - implement Territorio.eliminarCiudad
-		throw new UnsupportedOperationException();
+	public boolean eliminarCiudad(int codigoPostal, String nombreRegion) {
+		for (Region reg : regiones){
+			if (reg.getNombre().equals(nombreRegion)){
+				for (Ciudad ciu : reg.getCiudades()){
+					if (ciu.getCodigoPostal() == codigoPostal){
+						List<Ciudad> ciudades = reg.getCiudades();
+						ciudades.remove(ciu);
+						reg.setCiudades(ciudades);
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 
 	public List<Region> consultarRegiones() {
-		// TODO - implement Territorio.consultarRegiones
-		throw new UnsupportedOperationException();
+		return this.regiones;
 	}
 
 }
