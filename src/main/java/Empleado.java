@@ -40,4 +40,9 @@ public class Empleado {
 		this.cargo = cargo;
 	}
 
+	public Empleado(String nombre, int numeroId, String cargo) {
+		this.nombre = nombre;
+		this.numeroId = numeroId;
+		this.cargo = cargo;
+	}
 }

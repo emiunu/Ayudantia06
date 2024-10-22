@@ -63,8 +63,21 @@ public class Tienda {
 	 * @param cargo
 	 */
 	public boolean agregarEmpleado(String nombre, int numeroId, String cargo) {
-		// TODO - implement Tienda.agregarEmpleado
-		throw new UnsupportedOperationException();
+		if (!verificarExistenciaEmpleado(numeroId)){
+			Empleado empleado = new Empleado(nombre,numeroId,cargo);
+			this.empleados.add(empleado);
+			return true;
+		}
+		return false;
+	}
+
+	public boolean verificarExistenciaEmpleado(int numeroId){
+		for (Empleado e : this.empleados){
+			if (e.getNumeroId() == numeroId){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -72,8 +85,13 @@ public class Tienda {
 	 * @param numeroId
 	 */
 	public boolean eliminarEmpleado(int numeroId) {
-		// TODO - implement Tienda.eliminarEmpleado
-		throw new UnsupportedOperationException();
+		for (Empleado e : this.empleados){
+			if (e.getNumeroId() == numeroId){
+				this.empleados.remove(e);
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public List<Empleado> consultarEmpleados() {
@@ -89,8 +107,21 @@ public class Tienda {
 	 * @param nCliente
 	 */
 	public boolean registrarCliente(String nombre, int nCliente) {
-		// TODO - implement Tienda.registrarCliente
-		throw new UnsupportedOperationException();
+		if (!verificarExistenciaCliente(nCliente)){
+			Cliente cliente = new Cliente(nombre,nCliente);
+			this.clientes.add(cliente);
+			return true;
+		}
+		return false;
+	}
+
+	public boolean verificarExistenciaCliente(int nCliente){
+		for (Cliente cliente : this.clientes){
+			if (cliente.getNCliente() == nCliente){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -98,13 +129,17 @@ public class Tienda {
 	 * @param nCliente
 	 */
 	public boolean eliminarCliente(int nCliente) {
-		// TODO - implement Tienda.eliminarCliente
-		throw new UnsupportedOperationException();
+		for (Cliente cliente : clientes) {
+			if (cliente.getNCliente() == nCliente) {
+				this.clientes.remove(cliente);
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public List<Cliente> consultarClientes() {
-		// TODO - implement Tienda.consultarClientes
-		throw new UnsupportedOperationException();
+		return this.clientes;
 	}
 
 	/**
@@ -116,9 +151,18 @@ public class Tienda {
 	 * @param cliente
 	 * @param productos
 	 */
-	public void registrarCompra(int nCompra, String fecha, int total, String formaPago, Cliente cliente, List<Producto> productos) {
-		// TODO - implement Tienda.registrarCompra
-		throw new UnsupportedOperationException();
+	public boolean registrarCompra(int nCompra, String fecha, int total, String formaPago, Cliente cliente, List<Producto> productos) {
+		Compra compra = new Compra(cliente, nCompra, fecha, total, formaPago, productos);
+		for (Cliente client : clientes){
+			if (client.equals(cliente)){
+				List<Compra> comprasCliente = client.getCompras();
+				comprasCliente.add(compra);
+				client.setCompras(comprasCliente);
+				this.compras.add(compra);
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -130,8 +174,15 @@ public class Tienda {
 	 * @param categoria
 	 */
 	public boolean agregarProductosACompra(Compra compra, int codigo, String descripcion, int precio, String categoria) {
-		// TODO - implement Tienda.agregarProductosACompra
-		throw new UnsupportedOperationException();
+		for (Compra com : compras){
+			if (com.equals(compra)){
+				List<Producto> productos = compra.getProductos();
+				productos.add(new Producto(codigo, descripcion, precio, categoria));
+				compra.setProductos(productos);
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -139,14 +190,14 @@ public class Tienda {
 	 * @param compra
 	 * @param inventario
 	 */
-	public boolean actualizarInventarioCompra(Compra compra, Inventario inventario) {
-		// TODO - implement Tienda.actualizarInventarioCompra
-		throw new UnsupportedOperationException();
+	public void actualizarInventarioCompra(Compra compra, Inventario inventario) {
+		for (Producto producto : compra.getProductos()){
+			inventario.actualizarInventario(producto);
+		}
 	}
 
 	public List<Compra> consultarCompras() {
-		// TODO - implement Tienda.consultarCompras
-		throw new UnsupportedOperationException();
+		return this.compras;
 	}
 
 }

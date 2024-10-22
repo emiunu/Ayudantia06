@@ -5,6 +5,13 @@ public class Producto {
 	private int precio;
 	private String categoria;
 
+	public Producto(int codigo, String descripcion, int precio, String categoria) {
+		this.codigo = codigo;
+		this.descripcion = descripcion;
+		this.precio = precio;
+		this.categoria = categoria;
+	}
+
 	public int getCodigo() {
 		return this.codigo;
 	}

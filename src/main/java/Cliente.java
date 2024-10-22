@@ -6,6 +6,20 @@ public class Cliente {
 	private String nombre;
 	private int nCliente;
 
+	public Cliente(String nombre, int nCliente) {
+		this.nombre = nombre;
+		this.nCliente = nCliente;
+		this.compras = new ArrayList<>();
+	}
+
+	public List<Compra> getCompras() {
+		return compras;
+	}
+
+	public void setCompras(List<Compra> compras){
+		this.compras = compras;
+	}
+
 	public String getNombre() {
 		return this.nombre;
 	}

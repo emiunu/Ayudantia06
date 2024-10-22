@@ -57,4 +57,21 @@ public class Compra {
 		this.formaPago = formaPago;
 	}
 
+	public List<Producto> getProductos() {
+		return productos;
+	}
+
+	public void setProductos(List<Producto> productos) {
+		this.productos = productos;
+	}
+
+	public Compra(Cliente cliente, int nCompra, String fecha, int total, String formaPago, List<Producto> productos) {
+		this.cliente = cliente;
+		this.nCompra = nCompra;
+		this.fecha = fecha;
+		this.total = total;
+		this.formaPago = formaPago;
+		this.productos = new ArrayList<>();
+		this.productos.addAll(productos);
+	}
 }

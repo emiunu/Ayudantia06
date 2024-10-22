@@ -15,9 +15,8 @@ public class Inventario {
 	 * @param precio
 	 * @param categoria
 	 */
-	public boolean agregarProducto(int codigo, String descripcion, int precio, String categoria) {
-		// TODO - implement Inventario.agregarProducto
-		throw new UnsupportedOperationException();
+	public void agregarProducto(int codigo, String descripcion, int precio, String categoria) {
+		this.productos.add(new Producto(codigo, descripcion, precio, categoria));
 	}
 
 	/**
@@ -25,8 +24,14 @@ public class Inventario {
 	 * @param producto
 	 */
 	public boolean eliminarProducto(Producto producto) {
-		// TODO - implement Inventario.eliminarProducto
-		throw new UnsupportedOperationException();
+		boolean condicion = false;
+		for (Producto p : productos) {
+			if (p.equals(producto)) {
+				this.productos.remove(p);
+				condicion = true;
+			}
+		}
+		return condicion;
 	}
 
 	/**
@@ -34,8 +39,13 @@ public class Inventario {
 	 * @param producto
 	 */
 	public boolean actualizarInventario(Producto producto) {
-		// TODO - implement Inventario.actualizarInventario
-		throw new UnsupportedOperationException();
+		for (Producto p : this.productos){
+			if (p.equals(producto)) {
+				this.productos.remove(producto);
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public List<Producto> consultarProductos() {
@@ -47,8 +57,22 @@ public class Inventario {
 	 * @param producto
 	 */
 	public int consultarInventario(Producto producto) {
-		// TODO - implement Inventario.consultarInventario
-		throw new UnsupportedOperationException();
+		int contador = 0;
+		for (Producto p : this.productos){
+			if (p.equals(producto)){
+				contador++;
+			}
+		}
+		return contador;
+	}
+
+	public boolean verificarExistenciaProducto(int codigo){
+		for (Producto producto: this.productos) {
+			if (producto.getCodigo() == codigo){
+				return true;
+			}
+		}
+		return false;
 	}
 
 }
