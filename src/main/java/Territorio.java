@@ -23,14 +23,10 @@ public class Territorio {
 	 * @param ciudades
 	 */
 	public boolean agregarRegion(String nombre, List<Ciudad> ciudades) {
-		for (Region reg : regiones){
-			if (reg.getNombre().equals(nombre)){
-				break;
-			} else {
-				Region region = new Region(nombre, ciudades);
-				regiones.add(region);
-				return true;
-			}
+		if (!verificarExistenciaRegion(nombre)){
+			Region region = new Region(nombre, ciudades);
+			this.regiones.add(region);
+			return true;
 		}
 		return false;
 	}
@@ -40,9 +36,9 @@ public class Territorio {
 	 * @param nombreRegion
 	 */
 	public boolean eliminarRegion(String nombreRegion) {
-		for (Region region : regiones){
+		for (Region region : this.regiones){
 			if (region.getNombre().equals(nombreRegion)){
-				regiones.remove(region);
+				this.regiones.remove(region);
 				return true;
 			}
 		}
@@ -56,14 +52,12 @@ public class Territorio {
 	 * @param region
 	 */
 	public boolean agregarCiudad(String nombreCiudad, int codigoPostal, Region region) {
-		for (Region reg : regiones){
-			if (reg == region){
-				Ciudad ciudad = new Ciudad(nombreCiudad, codigoPostal);
-				List<Ciudad> ciudades = reg.getCiudades();
-				ciudades.add(ciudad);
-				reg.setCiudades(ciudades);
-				return true;
-			}
+		if (!verificarExistenciaCiudad(region,codigoPostal)){
+			Ciudad ciudad = new Ciudad(nombreCiudad, codigoPostal);
+			List<Ciudad> ciudades = region.getCiudades();
+			ciudades.add(ciudad);
+			region.setCiudades(ciudades);
+			return true;
 		}
 		return false;
 	}
@@ -90,6 +84,24 @@ public class Territorio {
 
 	public List<Region> consultarRegiones() {
 		return this.regiones;
+	}
+
+	public boolean verificarExistenciaRegion(String nombre){
+		for (Region reg : this.regiones){
+			if (reg.getNombre().equals(nombre)){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean verificarExistenciaCiudad(Region region, int codigoPostal){
+		for (Ciudad ciudad : region.getCiudades()){
+			if (ciudad.getCodigoPostal() == codigoPostal){
+				return true;
+			}
+		}
+		return false;
 	}
 
 }
