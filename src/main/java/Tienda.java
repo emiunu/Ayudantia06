@@ -14,6 +14,16 @@ public class Tienda {
 		return this.nombre;
 	}
 
+	public Tienda(Inventario inventario, String nombre, String direccion, String horarioAtencion) {
+		this.empleados = new ArrayList<>();
+		this.inventario = inventario;
+		this.nombre = nombre;
+		this.direccion = direccion;
+		this.horarioAtencion = horarioAtencion;
+		this.clientes = new ArrayList<>();
+		this.compras = new ArrayList<>();
+	}
+
 	/**
 	 * 
 	 * @param nombre
@@ -67,10 +77,12 @@ public class Tienda {
 	}
 
 	public List<Empleado> consultarEmpleados() {
-		// TODO - implement Tienda.consultarEmpleados
-		throw new UnsupportedOperationException();
+		return this.empleados;
 	}
 
+	public void setEmpleados(List<Empleado> empleados){
+		this.empleados = empleados;
+	}
 	/**
 	 * 
 	 * @param nombre

@@ -43,8 +43,12 @@ public class Ciudad {
 	 * @param horarioAtencion
 	 */
 	public boolean agregarTienda(String nombre, String direccion, String horarioAtencion) {
-		// TODO - implement Ciudad.agregarTienda
-		throw new UnsupportedOperationException();
+		if (!verificarExistenciaTienda(nombre)){
+			Tienda tienda = new Tienda(new Inventario(),nombre,direccion,horarioAtencion);
+			this.tiendas.add(tienda);
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -52,8 +56,13 @@ public class Ciudad {
 	 * @param nombre
 	 */
 	public boolean eliminarTienda(String nombre) {
-		// TODO - implement Ciudad.eliminarTienda
-		throw new UnsupportedOperationException();
+		for (Tienda tienda : this.tiendas){
+			if (tienda.getNombre().equals(nombre)){
+				this.tiendas.remove(tienda);
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -62,13 +71,29 @@ public class Ciudad {
 	 * @param empleado
 	 */
 	public boolean asociarEmpleados(String nombre, Empleado empleado) {
-		// TODO - implement Ciudad.asociarEmpleados
-		throw new UnsupportedOperationException();
+		for (Tienda tienda : this.tiendas){
+			if (tienda.getNombre().equals(nombre)){
+				List<Empleado> empleadosTienda = tienda.consultarEmpleados();
+				empleadosTienda.add(empleado);
+				tienda.setEmpleados(empleadosTienda);
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public List<Tienda> consultarTiendas() {
-		// TODO - implement Ciudad.consultarTiendas
-		throw new UnsupportedOperationException();
+		return this.tiendas;
+	}
+
+
+	public boolean verificarExistenciaTienda(String nombre){
+		for (Tienda tienda : this.tiendas){
+			if (tienda.getNombre().equals(nombre)){
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

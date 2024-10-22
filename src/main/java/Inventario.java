@@ -4,6 +4,10 @@ public class Inventario {
 
 	private List<Producto> productos;
 
+	public Inventario() {
+		this.productos = new ArrayList<>();
+	}
+
 	/**
 	 * 
 	 * @param codigo
@@ -34,9 +38,8 @@ public class Inventario {
 		throw new UnsupportedOperationException();
 	}
 
-	public List<Productos> consultarProductos() {
-		// TODO - implement Inventario.consultarProductos
-		throw new UnsupportedOperationException();
+	public List<Producto> consultarProductos() {
+		return this.productos;
 	}
 
 	/**
